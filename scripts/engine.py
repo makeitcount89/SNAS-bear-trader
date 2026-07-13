@@ -324,7 +324,16 @@ class BearGate:
         )
 
     def to_json(self):
-        return {k: v.to_json() for k, v in self.__dict__.items()}
+        return {
+            "trendBreakdown": self.trend_breakdown.to_json(),
+            "trendAlignment": self.trend_alignment.to_json(),
+            "relativeStrength": self.relative_strength.to_json(),
+            "liquidity": self.liquidity.to_json(),
+            "pullbackNotExtended": self.pullback_not_extended.to_json(),
+            "volatilitySpike": self.volatility_spike.to_json(),
+            "overboughtPrecondition": self.overbought_precondition.to_json(),
+            "knnConfidence": self.knn_confidence.to_json(),
+        }
 
 
 def evaluate_bear_gate(
@@ -433,15 +442,43 @@ def max_drawdown_pct(values: list[float]) -> float:
     return worst
 
 
+# Tue/Fri rebalance cadence -> 2 sessions/week, consistent with LNAS-SNAS's own
+# annualization basis for its risk-adjusted metrics.
+PERIODS_PER_YEAR = 104
+
+
+def sharpe_sortino(session_returns_pct: list[float]) -> tuple[float, float]:
+    if len(session_returns_pct) < 2:
+        return 0.0, 0.0
+    r = np.array(session_returns_pct) / 100
+    mean = r.mean()
+    std = r.std(ddof=1)
+    sharpe = float(mean / std * np.sqrt(PERIODS_PER_YEAR)) if std > 0 else 0.0
+    downside = r[r < 0]
+    downside_std = downside.std(ddof=1) if len(downside) > 1 else 0.0
+    sortino = float(mean / downside_std * np.sqrt(PERIODS_PER_YEAR)) if downside_std > 0 else 0.0
+    return sharpe, sortino
+
+
+def calmar_ratio(total_return_pct: float, n_sessions: int, max_dd_pct: float) -> float:
+    if n_sessions == 0 or max_dd_pct == 0:
+        return 0.0
+    annualized = (1 + total_return_pct / 100) ** (PERIODS_PER_YEAR / n_sessions) - 1
+    return float(annualized * 100 / abs(max_dd_pct))
+
+
 def simulate_window(
     window_dates: pd.DatetimeIndex,
     decisions: dict[pd.Timestamp, Decision],
     bear_returns: pd.Series,
     safe_returns: pd.Series,
+    bear_close: pd.Series,
+    safe_close: pd.Series,
 ) -> dict:
     value = INITIAL_CAPITAL
     values = [value]
     ledger = []
+    session_returns_pct = []
     wins = losses = cash_sessions = 0
     current_streak_type = None
     current_streak_len = 0
@@ -457,6 +494,7 @@ def simulate_window(
         ret = 0.0 if pd.isna(ret) else ret
         before = value
         value = value * (1 + ret / 100)
+        session_returns_pct.append(ret)
 
         traded = asset == "SNAS"
         if traded:
@@ -488,23 +526,33 @@ def simulate_window(
             "rawPrediction": decision.knn_prediction,
             "rawConfidence": round(decision.knn_confidence, 4),
             "gate": decision.gate.to_json(),
+            "snasPrice": round(float(bear_close.get(date, np.nan)), 4),
+            "safePrice": round(float(safe_close.get(date, np.nan)), 4),
             "intervalReturnPct": round(ret, 4),
             "portfolioValueBefore": round(before, 2),
             "portfolioValueAfter": round(value, 2),
+            "cumulativeReturnPct": round((value / INITIAL_CAPITAL - 1) * 100, 4),
         })
 
     total_trades = wins + losses
     win_rate = (wins / total_trades * 100) if total_trades else 0.0
+    max_dd = max_drawdown_pct(values)
+    total_return = round((value / INITIAL_CAPITAL - 1) * 100, 2)
+    sharpe, sortino = sharpe_sortino(session_returns_pct)
+    total_profit = value - INITIAL_CAPITAL
     return {
         "initialCapital": INITIAL_CAPITAL,
         "currentValue": round(value, 2),
-        "totalReturnPct": round((value / INITIAL_CAPITAL - 1) * 100, 2),
+        "totalReturnPct": total_return,
         "totalTrades": total_trades,
         "wins": wins,
         "losses": losses,
         "cashSessions": cash_sessions,
         "winRatePct": round(win_rate, 2),
-        "maxDrawdownPct": round(max_drawdown_pct(values), 2),
+        "maxDrawdownPct": round(max_dd, 2),
+        "sharpeRatio": round(sharpe, 2),
+        "sortinoRatio": round(sortino, 2),
+        "calmarRatio": round(calmar_ratio(total_return, len(session_returns_pct), max_dd), 2),
         "currentStreak": {"type": current_streak_type, "length": current_streak_len} if current_streak_type else None,
         "assetBreakdown": {
             asset_name: {
@@ -513,6 +561,7 @@ def simulate_window(
                 "losses": s["losses"],
                 "winRatePct": round((s["wins"] / s["trades"] * 100) if s["trades"] else 0.0, 2),
                 "dollarPnl": round(s["dollar_pnl"], 2),
+                "contributionPct": round((s["dollar_pnl"] / total_profit * 100) if total_profit != 0 else 0.0, 2),
             }
             for asset_name, s in asset_stats.items()
         },
@@ -538,6 +587,8 @@ def walk_forward_backtest(
     ref_close: pd.Series,
     bear_returns: pd.Series,
     safe_returns: pd.Series,
+    bear_close: pd.Series,
+    safe_close: pd.Series,
     lnas_close: pd.Series,
     ndx_close: pd.Series,
 ):
@@ -579,7 +630,7 @@ def walk_forward_backtest(
 
     validation_windows = []
     for i, window_dates in enumerate(windows):
-        result = simulate_window(window_dates, decisions, bear_returns, safe_returns)
+        result = simulate_window(window_dates, decisions, bear_returns, safe_returns, bear_close, safe_close)
         lnas_ret, lnas_dd = buy_and_hold_return_and_dd(lnas_close, window_dates)
         ndx_ret, ndx_dd = buy_and_hold_return_and_dd(ndx_close, window_dates)
         result.update({
@@ -589,20 +640,23 @@ def walk_forward_backtest(
             "buyHoldLnasReturnPct": lnas_ret,
             "buyHoldLnasMaxDrawdownPct": lnas_dd,
             "beatBuyHoldLnas": result["totalReturnPct"] > lnas_ret,
-            "avoidedDrawdownVsLnasPct": round(lnas_dd - result["maxDrawdownPct"], 2),
+            "avoidedDrawdownVsLnasPct": round(result["maxDrawdownPct"] - lnas_dd, 2),
             "buyHoldNdxReturnPct": ndx_ret,
             "beatBuyHoldNdx": result["totalReturnPct"] > ndx_ret,
         })
+        # The per-window ledger duplicates data already served in full via
+        # portfolio.ledger, and no dashboard view reads it at window granularity.
+        del result["ledger"]
         validation_windows.append(result)
 
-    full_result = simulate_window(decided_dates, decisions, bear_returns, safe_returns)
+    full_result = simulate_window(decided_dates, decisions, bear_returns, safe_returns, bear_close, safe_close)
     lnas_ret_full, lnas_dd_full = buy_and_hold_return_and_dd(lnas_close, decided_dates)
     ndx_ret_full, ndx_dd_full = buy_and_hold_return_and_dd(ndx_close, decided_dates)
     full_result.update({
         "buyHoldLnasReturnPct": lnas_ret_full,
         "buyHoldLnasMaxDrawdownPct": lnas_dd_full,
         "beatBuyHoldLnas": full_result["totalReturnPct"] > lnas_ret_full,
-        "avoidedDrawdownVsLnasPct": round(lnas_dd_full - full_result["maxDrawdownPct"], 2),
+        "avoidedDrawdownVsLnasPct": round(full_result["maxDrawdownPct"] - lnas_dd_full, 2),
         "buyHoldNdxReturnPct": ndx_ret_full,
         "beatBuyHoldNdx": full_result["totalReturnPct"] > ndx_ret_full,
     })
@@ -623,6 +677,9 @@ def summarize_validation_windows(windows: list[dict]) -> dict:
         "stdDevTotalReturnPct": round(float(np.std(returns)), 2),
         "meanTradesPerWindow": round(float(np.mean([w["totalTrades"] for w in windows])), 2),
         "meanCashSessionsPerWindow": round(float(np.mean([w["cashSessions"] for w in windows])), 2),
+        "meanSharpeRatio": round(float(np.mean([w["sharpeRatio"] for w in windows])), 2),
+        "stdDevSharpeRatio": round(float(np.std([w["sharpeRatio"] for w in windows])), 2),
+        "meanMaxDrawdownPct": round(float(np.mean([w["maxDrawdownPct"] for w in windows])), 2),
         "meanBuyHoldLnasReturnPct": round(float(np.mean([w["buyHoldLnasReturnPct"] for w in windows])), 2),
         "windowsBeatingBuyHoldLnas": sum(1 for w in windows if w["beatBuyHoldLnas"]),
         "meanAvoidedDrawdownVsLnasPct": round(float(np.mean([w["avoidedDrawdownVsLnasPct"] for w in windows])), 2),
@@ -657,7 +714,7 @@ def main():
     log.info("Running walk-forward backtest over %d sessions...", len(trading_dates))
     full_result, validation_windows, decisions, currently_holding, sessions_since_exit = walk_forward_backtest(
         trading_dates, features, trend, labeled_pool, liquidity_ratio,
-        ref_close, bear_returns, safe_returns, lnas["Close"], ref_close,
+        ref_close, bear_returns, safe_returns, bear["Close"], safe["Close"], lnas["Close"], ref_close,
     )
 
     validation_summary = summarize_validation_windows(validation_windows)

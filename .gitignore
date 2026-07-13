@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 .venv/
 .DS_Store
+node_modules/
+.next/
+next-env.d.ts
+*.tsbuildinfo
