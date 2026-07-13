@@ -40,6 +40,12 @@ export default function Home() {
     load();
   }, [load]);
 
+  // The placeholder JSON shipped before the engine's first run sets status
+  // to "awaiting_first_run" and leaves portfolio/assetBreakdown as {} --
+  // rendering the stat panels against that shape throws (they call
+  // .toFixed() on undefined fields), so gate them on real data being present.
+  const hasResults = Boolean(data && data.status !== "awaiting_first_run");
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
       <header className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -51,7 +57,7 @@ export default function Home() {
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
             Selective, cash-default rotation into SNAS.AX only when 8 independent bearish conditions agree — sibling
             to LNAS-SNAS, rebalanced Tuesdays &amp; Fridays · $500 seed, zero brokerage
-            {data?.meta && (
+            {hasResults && data?.meta && (
               <>
                 {" "}· trained on {Math.round(data.meta.trainWindowWeeks / 52)}y, evaluated out-of-sample over the
                 trailing {data.meta.holdoutWindowWeeks}-week holdout
@@ -92,11 +98,21 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-4">{data && <PortfolioStats portfolio={data.portfolio} />}</div>
+      {hasResults && data && (
+        <>
+          <div className="mt-4">
+            <PortfolioStats portfolio={data.portfolio} />
+          </div>
 
-      <div className="mt-4">{data && <RiskMetrics portfolio={data.portfolio} />}</div>
+          <div className="mt-4">
+            <RiskMetrics portfolio={data.portfolio} />
+          </div>
 
-      <div className="mt-4">{data && <AssetBreakdown breakdown={data.portfolio.assetBreakdown} />}</div>
+          <div className="mt-4">
+            <AssetBreakdown breakdown={data.portfolio.assetBreakdown} />
+          </div>
+        </>
+      )}
 
       <div className="mt-4 rounded-xl border border-base-700 bg-base-850 p-5">
         <h2 className="mb-4 text-sm font-medium text-[var(--text-secondary)]">
