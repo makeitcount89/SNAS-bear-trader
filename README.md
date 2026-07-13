@@ -119,7 +119,30 @@ Walk-forward, same shape as LNAS-SNAS:
   out to matter, that logic can be ported over from LNAS-SNAS's
   `resolve_session_price`.
 
-## Running it
+## Dashboard
+
+A Next.js/React/Tailwind dashboard (mirroring LNAS-SNAS's `app/`/`components/`
+structure) renders `public/strategy_data.json`: a live signal card with the
+8-condition gate checklist, risk-adjusted performance (Sharpe/Sortino/Calmar/
+max drawdown), SNAS-vs-cash contribution breakdown, an equity curve, the
+walk-forward validation table, and the full trading ledger with an expandable
+per-session gate detail view.
+
+```bash
+npm install
+npm run dev     # http://localhost:3000
+```
+
+It reads `public/strategy_data.json` as a same-origin static file — no API
+round trip. `app/api/workflow-status/route.ts` is a small serverless proxy to
+the GitHub Actions REST API so the browser never needs a token.
+
+This dashboard was not copied from LNAS-SNAS's diary feature (`app/diary`,
+manual trade-entry pages) — that's an independent, model-agnostic feature and
+out of scope here; everything shown is wired directly to this engine's own
+JSON schema (`lib/types.ts`), not LNAS-SNAS's.
+
+## Running the engine
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
@@ -138,7 +161,8 @@ python3 scripts/test_offline_smoke.py
 
 `.github/workflows/run_strategy.yml` runs the engine on the same Tuesday/
 Friday schedule as LNAS-SNAS and commits `public/strategy_data.json` back to
-the repo. No secrets are required.
+the repo. No secrets are required. Deploy the dashboard itself to Vercel
+(zero-config Next.js), same as LNAS-SNAS.
 
 ## Disclaimer
 

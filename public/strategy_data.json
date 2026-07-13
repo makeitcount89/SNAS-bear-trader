@@ -1,0 +1,14 @@
+{
+  "generatedAt": null,
+  "status": "awaiting_first_run",
+  "meta": {
+    "strategy": "SNAS Bear Trader - selective cash-default bear rotation, sibling to LNAS-SNAS"
+  },
+  "liveSignal": null,
+  "portfolio": {},
+  "chartSeries": [],
+  "validation": {
+    "windows": [],
+    "summary": {}
+  }
+}
