@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T16:51:23.585636+09:30",
+  "generatedAt": "2026-07-24T15:44:41.735277+09:30",
   "meta": {
     "strategy": "SNAS Bear Trader - selective cash-default bear rotation, sibling to LNAS-SNAS",
     "relationToLnasSnas": "Shares LNAS-SNAS's GMMA feature set (on ^NDX/^IXIC) and from-scratch weighted k-NN classifier. LNAS-SNAS is always invested (LNAS or SNAS, long-biased default). This model defaults to a cash-like safe asset and only enters SNAS when every one of 8 independent bearish conditions agree, including a precondition that price recently traded near a 5-year high before rolling over. LNAS-SNAS is never traded here.",
@@ -47,39 +47,39 @@
     "splitHandling": "Split ratios are pulled live via yfinance Ticker.splits; no hardcoded table is required."
   },
   "liveSignal": {
-    "asOfSessionDate": "2026-07-20",
-    "asOfTimestamp": "2026-07-21T16:51:23.585636+09:30",
+    "asOfSessionDate": "2026-07-23",
+    "asOfTimestamp": "2026-07-24T15:44:41.735277+09:30",
     "rawPrediction": "FLAT",
     "recommendedAsset": "SAFE",
     "action": "CASH",
     "currentlyHolding": "SAFE",
     "confidence": 0.0,
-    "sessionsSinceLastExit": 70,
+    "sessionsSinceLastExit": 73,
     "cooldownActive": false,
     "gate": {
       "trendBreakdown": {
         "pass": true,
-        "detail": "close 28604.2 vs MA20 29445.7 vs MA50 29548.8"
+        "detail": "close 28454.8 vs MA20 29330.4 vs MA50 29538.6"
       },
       "trendAlignment": {
-        "pass": false,
-        "detail": "GMMA center gap -0.16% <= -0.25%"
+        "pass": true,
+        "detail": "GMMA center gap -0.46% <= -0.25%"
       },
       "relativeStrength": {
         "pass": false,
-        "detail": "20d -5.93% / 60d 6.19% both negative"
+        "detail": "20d -2.62% / 60d 4.21% both negative"
       },
       "liquidity": {
-        "pass": true,
-        "detail": "SNAS volume ratio 3.08 >= 0.8"
+        "pass": false,
+        "detail": "SNAS volume ratio 0.32 >= 0.8"
       },
       "pullbackNotExtended": {
         "pass": true,
-        "detail": "|price vs short group| 1.64% <= 2.5%"
+        "detail": "|price vs short group| 1.71% <= 2.5%"
       },
       "volatilitySpike": {
         "pass": false,
-        "detail": "realized/baseline vol ratio 0.83 > 1.5 while below MA50"
+        "detail": "realized/baseline vol ratio 0.85 > 1.5 while below MA50"
       },
       "overboughtPrecondition": {
         "pass": true,
@@ -87,24 +87,24 @@
       },
       "knnConfidence": {
         "pass": false,
-        "detail": "k-NN raw=UP confidence=1.00 >= 0.6"
+        "detail": "k-NN raw=UP confidence=0.78 >= 0.6"
       }
     },
     "lastPrices": {
-      "SNAS": -207.0975,
-      "SAFE": 50.18,
-      "LNAS": 10.9293
+      "SNAS": -216.7559,
+      "SAFE": 50.22,
+      "LNAS": 10.4783
     },
-    "trainingSamples": 2476
+    "trainingSamples": 2477
   },
   "portfolio": {
     "initialCapital": 500.0,
-    "currentValue": 477.19,
-    "totalReturnPct": -4.56,
+    "currentValue": 477.38,
+    "totalReturnPct": -4.52,
     "totalTrades": 3,
     "wins": 2,
     "losses": 1,
-    "cashSessions": 958,
+    "cashSessions": 961,
     "winRatePct": 66.67,
     "maxDrawdownPct": -7.63,
     "sharpeRatio": -0.17,
@@ -121,15 +121,15 @@
         "losses": 1,
         "winRatePct": 66.67,
         "dollarPnl": -25.32,
-        "contributionPct": 111.01
+        "contributionPct": 111.94
       },
       "SAFE": {
-        "trades": 958,
+        "trades": 961,
         "wins": 0,
         "losses": 0,
         "winRatePct": 0.0,
-        "dollarPnl": 2.51,
-        "contributionPct": -11.01
+        "dollarPnl": 2.7,
+        "contributionPct": -11.94
       }
     },
     "ledger": [
@@ -1016,7 +1016,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.63 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.62 >= 0.6"
           }
         },
         "snasPrice": 4.73,
@@ -1815,7 +1815,7 @@
           },
           "knnConfidence": {
             "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.66 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.67 >= 0.6"
           }
         },
         "snasPrice": 5.7,
@@ -3272,7 +3272,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=DOWN confidence=0.41 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.40 >= 0.6"
           }
         },
         "snasPrice": 4.94,
@@ -3835,8 +3835,8 @@
             "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
           },
           "knnConfidence": {
-            "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.67 >= 0.6"
+            "pass": false,
+            "detail": "k-NN raw=DOWN confidence=0.37 >= 0.6"
           }
         },
         "snasPrice": 4.81,
@@ -3977,7 +3977,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.68 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.69 >= 0.6"
           }
         },
         "snasPrice": 4.61,
@@ -4024,7 +4024,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.70 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.67 >= 0.6"
           }
         },
         "snasPrice": 4.75,
@@ -4071,7 +4071,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.68 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.69 >= 0.6"
           }
         },
         "snasPrice": 5.12,
@@ -4635,7 +4635,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=DOWN confidence=0.35 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.34 >= 0.6"
           }
         },
         "snasPrice": 5.7,
@@ -5763,7 +5763,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.52 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.50 >= 0.6"
           }
         },
         "snasPrice": 4.17,
@@ -7314,7 +7314,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.62 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.61 >= 0.6"
           }
         },
         "snasPrice": 3.62,
@@ -8207,7 +8207,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.49 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.50 >= 0.6"
           }
         },
         "snasPrice": 3.48,
@@ -8536,7 +8536,7 @@
           },
           "knnConfidence": {
             "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.65 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.66 >= 0.6"
           }
         },
         "snasPrice": 3.39,
@@ -13142,7 +13142,7 @@
           },
           "knnConfidence": {
             "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.63 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.65 >= 0.6"
           }
         },
         "snasPrice": 2.68,
@@ -13330,7 +13330,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.62 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.61 >= 0.6"
           }
         },
         "snasPrice": 2.67,
@@ -13377,7 +13377,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.67 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.50 >= 0.6"
           }
         },
         "snasPrice": 2.57,
@@ -13471,7 +13471,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.54 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.55 >= 0.6"
           }
         },
         "snasPrice": 2.49,
@@ -13612,7 +13612,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.47 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.43 >= 0.6"
           }
         },
         "snasPrice": 2.55,
@@ -13659,7 +13659,7 @@
           },
           "knnConfidence": {
             "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.63 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.65 >= 0.6"
           }
         },
         "snasPrice": 2.57,
@@ -14176,7 +14176,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.67 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.68 >= 0.6"
           }
         },
         "snasPrice": 2.71,
@@ -14411,7 +14411,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.39 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.38 >= 0.6"
           }
         },
         "snasPrice": 2.46,
@@ -16714,7 +16714,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.72 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.71 >= 0.6"
           }
         },
         "snasPrice": 1.825,
@@ -17748,7 +17748,7 @@
           },
           "knnConfidence": {
             "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.68 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.69 >= 0.6"
           }
         },
         "snasPrice": 1.725,
@@ -18688,7 +18688,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.75 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.76 >= 0.6"
           }
         },
         "snasPrice": 1.65,
@@ -19064,7 +19064,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.50 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.74 >= 0.6"
           }
         },
         "snasPrice": 1.695,
@@ -19722,7 +19722,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=DOWN confidence=0.39 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.68 >= 0.6"
           }
         },
         "snasPrice": 1.775,
@@ -19816,7 +19816,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=1.00 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.73 >= 0.6"
           }
         },
         "snasPrice": 1.865,
@@ -23106,7 +23106,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.75 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.69 >= 0.6"
           }
         },
         "snasPrice": 1.505,
@@ -23576,7 +23576,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.46 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.75 >= 0.6"
           }
         },
         "snasPrice": 1.415,
@@ -23669,8 +23669,8 @@
             "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
           },
           "knnConfidence": {
-            "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.41 >= 0.6"
+            "pass": true,
+            "detail": "k-NN raw=DOWN confidence=0.71 >= 0.6"
           }
         },
         "snasPrice": 1.435,
@@ -23764,7 +23764,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=DOWN confidence=0.51 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.52 >= 0.6"
           }
         },
         "snasPrice": 1.55,
@@ -24093,7 +24093,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.68 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.34 >= 0.6"
           }
         },
         "snasPrice": 1.435,
@@ -24234,7 +24234,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.52 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.53 >= 0.6"
           }
         },
         "snasPrice": 1.43,
@@ -24281,7 +24281,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.67 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.68 >= 0.6"
           }
         },
         "snasPrice": 1.395,
@@ -24986,7 +24986,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.63 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.62 >= 0.6"
           }
         },
         "snasPrice": 1.3,
@@ -25362,7 +25362,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.61 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.62 >= 0.6"
           }
         },
         "snasPrice": 1.305,
@@ -28934,7 +28934,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=DOWN confidence=0.55 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.54 >= 0.6"
           }
         },
         "snasPrice": -397.1072,
@@ -28981,7 +28981,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.61 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.62 >= 0.6"
           }
         },
         "snasPrice": -391.3493,
@@ -35373,7 +35373,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.69 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.70 >= 0.6"
           }
         },
         "snasPrice": -337.4854,
@@ -35467,7 +35467,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=DOWN confidence=0.41 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.40 >= 0.6"
           }
         },
         "snasPrice": -331.9133,
@@ -36171,8 +36171,8 @@
             "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
           },
           "knnConfidence": {
-            "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.64 >= 0.6"
+            "pass": false,
+            "detail": "k-NN raw=FLAT confidence=0.64 >= 0.6"
           }
         },
         "snasPrice": -312.7823,
@@ -38099,7 +38099,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.51 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.50 >= 0.6"
           }
         },
         "snasPrice": -294.7657,
@@ -39086,7 +39086,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.34 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.35 >= 0.6"
           }
         },
         "snasPrice": -291.051,
@@ -39697,7 +39697,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=DOWN confidence=0.42 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.58 >= 0.6"
           }
         },
         "snasPrice": -291.051,
@@ -39791,7 +39791,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.78 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.77 >= 0.6"
           }
         },
         "snasPrice": -280.4639,
@@ -39838,7 +39838,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.69 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.68 >= 0.6"
           }
         },
         "snasPrice": -274.3346,
@@ -40026,7 +40026,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.58 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.62 >= 0.6"
           }
         },
         "snasPrice": -279.721,
@@ -40355,7 +40355,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.41 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.39 >= 0.6"
           }
         },
         "snasPrice": -294.58,
@@ -40777,8 +40777,8 @@
             "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
           },
           "knnConfidence": {
-            "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.69 >= 0.6"
+            "pass": false,
+            "detail": "k-NN raw=FLAT confidence=0.67 >= 0.6"
           }
         },
         "snasPrice": -295.1372,
@@ -41107,7 +41107,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=FLAT confidence=0.49 >= 0.6"
+            "detail": "k-NN raw=FLAT confidence=0.46 >= 0.6"
           }
         },
         "snasPrice": -327.827,
@@ -41295,7 +41295,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=DOWN confidence=0.44 >= 0.6"
+            "detail": "k-NN raw=DOWN confidence=0.42 >= 0.6"
           }
         },
         "snasPrice": -315.3826,
@@ -41389,7 +41389,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.78 >= 0.6"
+            "detail": "k-NN raw=UP confidence=1.00 >= 0.6"
           }
         },
         "snasPrice": -314.0825,
@@ -41435,8 +41435,8 @@
             "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
           },
           "knnConfidence": {
-            "pass": true,
-            "detail": "k-NN raw=DOWN confidence=0.63 >= 0.6"
+            "pass": false,
+            "detail": "k-NN raw=UP confidence=0.53 >= 0.6"
           }
         },
         "snasPrice": -304.9813,
@@ -41483,7 +41483,7 @@
           },
           "knnConfidence": {
             "pass": false,
-            "detail": "k-NN raw=UP confidence=0.66 >= 0.6"
+            "detail": "k-NN raw=UP confidence=0.68 >= 0.6"
           }
         },
         "snasPrice": -320.2118,
@@ -45299,13 +45299,154 @@
         "portfolioValueBefore": 477.09,
         "portfolioValueAfter": 477.19,
         "cumulativeReturnPct": -4.5627
+      },
+      {
+        "date": "2026-07-21",
+        "asset": "SAFE",
+        "action": "CASH",
+        "rawPrediction": "FLAT",
+        "rawConfidence": 0.0,
+        "gate": {
+          "trendBreakdown": {
+            "pass": true,
+            "detail": "close 29155.2 vs MA20 29386.1 vs MA50 29560.7"
+          },
+          "trendAlignment": {
+            "pass": false,
+            "detail": "GMMA center gap -0.01% <= -0.25%"
+          },
+          "relativeStrength": {
+            "pass": false,
+            "detail": "20d -3.93% / 60d 8.86% both negative"
+          },
+          "liquidity": {
+            "pass": false,
+            "detail": "SNAS volume ratio 0.66 >= 0.8"
+          },
+          "pullbackNotExtended": {
+            "pass": true,
+            "detail": "|price vs short group| 0.12% <= 2.5%"
+          },
+          "volatilitySpike": {
+            "pass": false,
+            "detail": "realized/baseline vol ratio 0.87 > 1.5 while below MA50"
+          },
+          "overboughtPrecondition": {
+            "pass": true,
+            "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
+          },
+          "knnConfidence": {
+            "pass": false,
+            "detail": "k-NN raw=DOWN confidence=0.47 >= 0.6"
+          }
+        },
+        "snasPrice": -207.0975,
+        "safePrice": 50.18,
+        "intervalReturnPct": 0.0,
+        "portfolioValueBefore": 477.19,
+        "portfolioValueAfter": 477.19,
+        "cumulativeReturnPct": -4.5627
+      },
+      {
+        "date": "2026-07-22",
+        "asset": "SAFE",
+        "action": "CASH",
+        "rawPrediction": "FLAT",
+        "rawConfidence": 0.0,
+        "gate": {
+          "trendBreakdown": {
+            "pass": true,
+            "detail": "close 28998.1 vs MA20 29368.6 vs MA50 29555.9"
+          },
+          "trendAlignment": {
+            "pass": false,
+            "detail": "GMMA center gap -0.05% <= -0.25%"
+          },
+          "relativeStrength": {
+            "pass": false,
+            "detail": "20d -1.19% / 60d 6.21% both negative"
+          },
+          "liquidity": {
+            "pass": false,
+            "detail": "SNAS volume ratio 0.20 >= 0.8"
+          },
+          "pullbackNotExtended": {
+            "pass": true,
+            "detail": "|price vs short group| 0.36% <= 2.5%"
+          },
+          "volatilitySpike": {
+            "pass": false,
+            "detail": "realized/baseline vol ratio 0.89 > 1.5 while below MA50"
+          },
+          "overboughtPrecondition": {
+            "pass": true,
+            "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
+          },
+          "knnConfidence": {
+            "pass": false,
+            "detail": "k-NN raw=DOWN confidence=0.52 >= 0.6"
+          }
+        },
+        "snasPrice": -206.9118,
+        "safePrice": 50.18,
+        "intervalReturnPct": 0.0,
+        "portfolioValueBefore": 477.19,
+        "portfolioValueAfter": 477.19,
+        "cumulativeReturnPct": -4.5627
+      },
+      {
+        "date": "2026-07-23",
+        "asset": "SAFE",
+        "action": "CASH",
+        "rawPrediction": "FLAT",
+        "rawConfidence": 0.0,
+        "gate": {
+          "trendBreakdown": {
+            "pass": true,
+            "detail": "close 28454.8 vs MA20 29330.4 vs MA50 29538.6"
+          },
+          "trendAlignment": {
+            "pass": true,
+            "detail": "GMMA center gap -0.46% <= -0.25%"
+          },
+          "relativeStrength": {
+            "pass": false,
+            "detail": "20d -2.62% / 60d 4.21% both negative"
+          },
+          "liquidity": {
+            "pass": false,
+            "detail": "SNAS volume ratio 0.32 >= 0.8"
+          },
+          "pullbackNotExtended": {
+            "pass": true,
+            "detail": "|price vs short group| 1.71% <= 2.5%"
+          },
+          "volatilitySpike": {
+            "pass": false,
+            "detail": "realized/baseline vol ratio 0.85 > 1.5 while below MA50"
+          },
+          "overboughtPrecondition": {
+            "pass": true,
+            "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
+          },
+          "knnConfidence": {
+            "pass": false,
+            "detail": "k-NN raw=UP confidence=0.78 >= 0.6"
+          }
+        },
+        "snasPrice": -207.6548,
+        "safePrice": 50.2,
+        "intervalReturnPct": 0.0399,
+        "portfolioValueBefore": 477.19,
+        "portfolioValueAfter": 477.38,
+        "cumulativeReturnPct": -4.5246
       }
     ],
-    "buyHoldLnasReturnPct": -0.34,
+    "buyHoldLnasReturnPct": 2.12,
     "buyHoldLnasMaxDrawdownPct": -64.64,
     "beatBuyHoldLnas": false,
     "avoidedDrawdownVsLnasPct": 57.01,
-    "buyHoldNdxReturnPct": 111.79,
+    "buyHoldNdxReturnPct": 110.68,
     "beatBuyHoldNdx": false
   },
   "chartSeries": [
@@ -50113,6 +50254,21 @@
       "date": "2026-07-20",
       "portfolioValue": 477.19,
       "cumulativeProfit": -22.81
+    },
+    {
+      "date": "2026-07-21",
+      "portfolioValue": 477.19,
+      "cumulativeProfit": -22.81
+    },
+    {
+      "date": "2026-07-22",
+      "portfolioValue": 477.19,
+      "cumulativeProfit": -22.81
+    },
+    {
+      "date": "2026-07-23",
+      "portfolioValue": 477.38,
+      "cumulativeProfit": -22.62
     }
   ],
   "validation": {
@@ -50245,17 +50401,17 @@
       },
       {
         "initialCapital": 500.0,
-        "currentValue": 476.0,
-        "totalReturnPct": -4.8,
+        "currentValue": 476.19,
+        "totalReturnPct": -4.76,
         "totalTrades": 3,
         "wins": 2,
         "losses": 1,
-        "cashSessions": 178,
+        "cashSessions": 181,
         "winRatePct": 66.67,
         "maxDrawdownPct": -7.63,
         "sharpeRatio": -0.43,
-        "sortinoRatio": -0.19,
-        "calmarRatio": -0.37,
+        "sortinoRatio": -0.18,
+        "calmarRatio": -0.36,
         "currentStreak": {
           "type": "W",
           "length": 1
@@ -50267,25 +50423,25 @@
             "losses": 1,
             "winRatePct": 66.67,
             "dollarPnl": -25.26,
-            "contributionPct": 105.26
+            "contributionPct": 106.1
           },
           "SAFE": {
-            "trades": 178,
+            "trades": 181,
             "wins": 0,
             "losses": 0,
             "winRatePct": 0.0,
-            "dollarPnl": 1.26,
-            "contributionPct": -5.26
+            "dollarPnl": 1.45,
+            "contributionPct": -6.1
           }
         },
         "windowIndex": 3,
         "startDate": "2025-10-21",
-        "endDate": "2026-07-20",
-        "buyHoldLnasReturnPct": -14.97,
+        "endDate": "2026-07-23",
+        "buyHoldLnasReturnPct": -12.87,
         "buyHoldLnasMaxDrawdownPct": -41.5,
         "beatBuyHoldLnas": true,
         "avoidedDrawdownVsLnasPct": 33.87,
-        "buyHoldNdxReturnPct": 13.84,
+        "buyHoldNdxReturnPct": 13.24,
         "beatBuyHoldNdx": false
       }
     ],
@@ -50293,17 +50449,17 @@
       "windowsEvaluated": 4,
       "meanWinRatePct": 66.67,
       "stdDevWinRatePct": 0.0,
-      "meanTotalReturnPct": -1.14,
-      "stdDevTotalReturnPct": 2.13,
+      "meanTotalReturnPct": -1.13,
+      "stdDevTotalReturnPct": 2.12,
       "meanTradesPerWindow": 0.75,
-      "meanCashSessionsPerWindow": 239.5,
+      "meanCashSessionsPerWindow": 240.25,
       "meanSharpeRatio": -0.08,
       "stdDevSharpeRatio": 0.26,
       "meanMaxDrawdownPct": -2.26,
-      "meanBuyHoldLnasReturnPct": 0.72,
+      "meanBuyHoldLnasReturnPct": 1.24,
       "windowsBeatingBuyHoldLnas": 2,
       "meanAvoidedDrawdownVsLnasPct": 46.55,
-      "meanBuyHoldNdxReturnPct": 20.43,
+      "meanBuyHoldNdxReturnPct": 20.28,
       "windowsBeatingBuyHoldNdx": 0
     }
   }
