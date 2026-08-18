@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T13:50:20.998771+09:30",
+  "generatedAt": "2026-08-18T14:44:08.420768+09:30",
   "meta": {
     "strategy": "SNAS Bear Trader - selective cash-default bear rotation, sibling to LNAS-SNAS",
     "relationToLnasSnas": "Shares LNAS-SNAS's GMMA feature set (on ^NDX/^IXIC) and from-scratch weighted k-NN classifier. LNAS-SNAS is always invested (LNAS or SNAS, long-biased default). This model defaults to a cash-like safe asset and only enters SNAS when every one of 8 independent bearish conditions agree, including a precondition that price recently traded near a 5-year high before rolling over. LNAS-SNAS is never traded here.",
@@ -48,7 +48,7 @@
   },
   "liveSignal": {
     "asOfSessionDate": "2026-08-14",
-    "asOfTimestamp": "2026-08-18T13:50:20.998771+09:30",
+    "asOfTimestamp": "2026-08-18T14:44:08.420768+09:30",
     "rawPrediction": "FLAT",
     "recommendedAsset": "SAFE",
     "action": "CASH",
@@ -91,9 +91,9 @@
       }
     },
     "lastPrices": {
-      "SNAS": -192.9815,
+      "SNAS": -192.61,
       "SAFE": 50.17,
-      "LNAS": 11.559
+      "LNAS": 11.5966
     },
     "trainingSamples": 2475
   },
