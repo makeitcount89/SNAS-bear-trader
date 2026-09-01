@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T18:25:26.711404+09:30",
+  "generatedAt": "2026-09-01T19:06:31.624870+09:30",
   "meta": {
     "strategy": "SNAS Bear Trader - selective cash-default bear rotation, sibling to LNAS-SNAS",
     "relationToLnasSnas": "Shares LNAS-SNAS's GMMA feature set (on ^NDX/^IXIC) and from-scratch weighted k-NN classifier. LNAS-SNAS is always invested (LNAS or SNAS, long-biased default). This model defaults to a cash-like safe asset and only enters SNAS when every one of 8 independent bearish conditions agree, including a precondition that price recently traded near a 5-year high before rolling over. LNAS-SNAS is never traded here.",
@@ -48,26 +48,26 @@
   },
   "liveSignal": {
     "asOfSessionDate": "2026-08-31",
-    "asOfTimestamp": "2026-09-01T18:25:26.711404+09:30",
+    "asOfTimestamp": "2026-09-01T19:06:31.624870+09:30",
     "rawPrediction": "FLAT",
     "recommendedAsset": "SAFE",
     "action": "CASH",
     "currentlyHolding": "SAFE",
     "confidence": 0.0,
-    "sessionsSinceLastExit": 99,
+    "sessionsSinceLastExit": 100,
     "cooldownActive": false,
     "gate": {
       "trendBreakdown": {
         "pass": false,
-        "detail": "close 29457.0 vs MA20 29505.2 vs MA50 29270.7"
+        "detail": "close 29457.0 vs MA20 29538.0 vs MA50 29251.3"
       },
       "trendAlignment": {
         "pass": false,
-        "detail": "GMMA center gap 0.67% <= -0.25%"
+        "detail": "GMMA center gap 0.66% <= -0.25%"
       },
       "relativeStrength": {
         "pass": false,
-        "detail": "20d 4.18% / 60d -3.64% both negative"
+        "detail": "20d 2.36% / 60d -3.13% both negative"
       },
       "liquidity": {
         "pass": false,
@@ -75,11 +75,11 @@
       },
       "pullbackNotExtended": {
         "pass": true,
-        "detail": "|price vs short group| 0.18% <= 2.5%"
+        "detail": "|price vs short group| 0.15% <= 2.5%"
       },
       "volatilitySpike": {
         "pass": false,
-        "detail": "realized/baseline vol ratio 0.54 > 1.5 while below MA50"
+        "detail": "realized/baseline vol ratio 0.55 > 1.5 while below MA50"
       },
       "overboughtPrecondition": {
         "pass": true,
@@ -95,19 +95,19 @@
       "SAFE": 50.07,
       "LNAS": 11.2864
     },
-    "trainingSamples": 2475
+    "trainingSamples": 2476
   },
   "portfolio": {
     "initialCapital": 500.0,
-    "currentValue": 477.57,
-    "totalReturnPct": -4.49,
+    "currentValue": 477.76,
+    "totalReturnPct": -4.45,
     "totalTrades": 3,
     "wins": 2,
     "losses": 1,
-    "cashSessions": 987,
+    "cashSessions": 988,
     "winRatePct": 66.67,
     "maxDrawdownPct": -7.63,
-    "sharpeRatio": -0.17,
+    "sharpeRatio": -0.16,
     "sortinoRatio": -0.07,
     "calmarRatio": -0.06,
     "currentStreak": {
@@ -121,15 +121,15 @@
         "losses": 1,
         "winRatePct": 66.67,
         "dollarPnl": -25.32,
-        "contributionPct": 112.89
+        "contributionPct": 113.86
       },
       "SAFE": {
-        "trades": 987,
+        "trades": 988,
         "wins": 0,
         "losses": 0,
         "winRatePct": 0.0,
-        "dollarPnl": 2.89,
-        "contributionPct": -12.89
+        "dollarPnl": 3.08,
+        "contributionPct": -13.86
       }
     },
     "ledger": [
@@ -46617,7 +46617,7 @@
         "cumulativeReturnPct": -4.4866
       },
       {
-        "date": "2026-08-31",
+        "date": "2026-08-28",
         "asset": "SAFE",
         "action": "CASH",
         "rawPrediction": "FLAT",
@@ -46625,23 +46625,23 @@
         "gate": {
           "trendBreakdown": {
             "pass": false,
-            "detail": "close 29457.0 vs MA20 29505.2 vs MA50 29270.7"
+            "detail": "close 29433.4 vs MA20 29504.0 vs MA50 29270.2"
           },
           "trendAlignment": {
             "pass": false,
-            "detail": "GMMA center gap 0.67% <= -0.25%"
+            "detail": "GMMA center gap 0.65% <= -0.25%"
           },
           "relativeStrength": {
             "pass": false,
-            "detail": "20d 4.18% / 60d -3.64% both negative"
+            "detail": "20d 4.10% / 60d -3.72% both negative"
           },
           "liquidity": {
             "pass": false,
-            "detail": "SNAS volume ratio 0.67 >= 0.8"
+            "detail": "SNAS volume ratio 0.30 >= 0.8"
           },
           "pullbackNotExtended": {
             "pass": true,
-            "detail": "|price vs short group| 0.18% <= 2.5%"
+            "detail": "|price vs short group| 0.12% <= 2.5%"
           },
           "volatilitySpike": {
             "pass": false,
@@ -46656,12 +46656,59 @@
             "detail": "k-NN raw=UP confidence=1.00 >= 0.6"
           }
         },
+        "snasPrice": -196.3247,
+        "safePrice": 50.24,
+        "intervalReturnPct": 0.0398,
+        "portfolioValueBefore": 477.57,
+        "portfolioValueAfter": 477.76,
+        "cumulativeReturnPct": -4.4486
+      },
+      {
+        "date": "2026-08-31",
+        "asset": "SAFE",
+        "action": "CASH",
+        "rawPrediction": "FLAT",
+        "rawConfidence": 0.0,
+        "gate": {
+          "trendBreakdown": {
+            "pass": false,
+            "detail": "close 29457.0 vs MA20 29538.0 vs MA50 29251.3"
+          },
+          "trendAlignment": {
+            "pass": false,
+            "detail": "GMMA center gap 0.66% <= -0.25%"
+          },
+          "relativeStrength": {
+            "pass": false,
+            "detail": "20d 2.36% / 60d -3.13% both negative"
+          },
+          "liquidity": {
+            "pass": false,
+            "detail": "SNAS volume ratio 0.67 >= 0.8"
+          },
+          "pullbackNotExtended": {
+            "pass": true,
+            "detail": "|price vs short group| 0.15% <= 2.5%"
+          },
+          "volatilitySpike": {
+            "pass": false,
+            "detail": "realized/baseline vol ratio 0.55 > 1.5 while below MA50"
+          },
+          "overboughtPrecondition": {
+            "pass": true,
+            "detail": "traded within -8.0% of its 5y high within the last 60 sessions"
+          },
+          "knnConfidence": {
+            "pass": false,
+            "detail": "k-NN raw=UP confidence=1.00 >= 0.6"
+          }
+        },
         "snasPrice": -198.1821,
         "safePrice": 50.24,
         "intervalReturnPct": 0.0,
-        "portfolioValueBefore": 477.57,
-        "portfolioValueAfter": 477.57,
-        "cumulativeReturnPct": -4.4866
+        "portfolioValueBefore": 477.76,
+        "portfolioValueAfter": 477.76,
+        "cumulativeReturnPct": -4.4486
       }
     ],
     "buyHoldLnasReturnPct": 4.84,
@@ -51618,9 +51665,14 @@
       "cumulativeProfit": -22.43
     },
     {
+      "date": "2026-08-28",
+      "portfolioValue": 477.76,
+      "cumulativeProfit": -22.24
+    },
+    {
       "date": "2026-08-31",
-      "portfolioValue": 477.57,
-      "cumulativeProfit": -22.43
+      "portfolioValue": 477.76,
+      "cumulativeProfit": -22.24
     }
   ],
   "validation": {
@@ -51753,16 +51805,16 @@
       },
       {
         "initialCapital": 500.0,
-        "currentValue": 476.38,
-        "totalReturnPct": -4.72,
+        "currentValue": 476.57,
+        "totalReturnPct": -4.69,
         "totalTrades": 3,
         "wins": 2,
         "losses": 1,
-        "cashSessions": 207,
+        "cashSessions": 208,
         "winRatePct": 66.67,
         "maxDrawdownPct": -7.63,
         "sharpeRatio": -0.39,
-        "sortinoRatio": -0.17,
+        "sortinoRatio": -0.16,
         "calmarRatio": -0.31,
         "currentStreak": {
           "type": "W",
@@ -51775,15 +51827,15 @@
             "losses": 1,
             "winRatePct": 66.67,
             "dollarPnl": -25.26,
-            "contributionPct": 106.95
+            "contributionPct": 107.81
           },
           "SAFE": {
-            "trades": 207,
+            "trades": 208,
             "wins": 0,
             "losses": 0,
             "winRatePct": 0.0,
-            "dollarPnl": 1.64,
-            "contributionPct": -6.95
+            "dollarPnl": 1.83,
+            "contributionPct": -7.81
           }
         },
         "windowIndex": 3,
@@ -51801,10 +51853,10 @@
       "windowsEvaluated": 4,
       "meanWinRatePct": 66.67,
       "stdDevWinRatePct": 0.0,
-      "meanTotalReturnPct": -1.12,
-      "stdDevTotalReturnPct": 2.1,
+      "meanTotalReturnPct": -1.11,
+      "stdDevTotalReturnPct": 2.09,
       "meanTradesPerWindow": 0.75,
-      "meanCashSessionsPerWindow": 246.75,
+      "meanCashSessionsPerWindow": 247.0,
       "meanSharpeRatio": -0.07,
       "stdDevSharpeRatio": 0.25,
       "meanMaxDrawdownPct": -2.26,
